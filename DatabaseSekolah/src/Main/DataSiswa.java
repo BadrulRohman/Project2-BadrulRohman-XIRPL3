@@ -116,6 +116,11 @@ public class DataSiswa extends javax.swing.JFrame {
         });
 
         cmdUbah.setText("Ubah");
+        cmdUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdUbahActionPerformed(evt);
+            }
+        });
 
         cmdTambah.setText("Tambah");
         cmdTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -188,13 +193,13 @@ public class DataSiswa extends javax.swing.JFrame {
 
     private void cmdHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHapusActionPerformed
     
-        String idWhoWantToBeDelete = tbl_siswa.getValueAt(baris, 0).toString();
+        String idWhoWantToBeDelete = tbl_siswa.getValueAt(baris, 1).toString();
         try{
             Statement stmt = koneksi.createStatement();
-            String query = "DELETE FROM t_siswa WHERE nis = '"+idWhoWantToBeDelete+"'";
+            String query = "DELETE FROM `t_siswa` WHERE `nis` = '"+idWhoWantToBeDelete+"'";
         int berhasil = stmt.executeUpdate(query);
         if (berhasil == 1) {
-            JOptionPane.showMessageDialog(null," Data Berhasil Diahpus");
+            JOptionPane.showMessageDialog(null," Data Berhasil Dihapus");
             dtm.getDataVector().removeAllElements();
             showData();
         }else{
@@ -208,7 +213,7 @@ public class DataSiswa extends javax.swing.JFrame {
 
     
     private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTambahActionPerformed
-    ManageData tambahData = new ManageData (this, true);
+    ManageData tambahData = new ManageData (this, true, "Tambah","");
     tambahData.setVisible(true);
 // TODO add your handling code here:
     }//GEN-LAST:event_cmdTambahActionPerformed
@@ -217,6 +222,14 @@ int baris;
     private void tbl_siswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_siswaMouseClicked
   baris = tbl_siswa.getSelectedRow();
     }//GEN-LAST:event_tbl_siswaMouseClicked
+
+    private void cmdUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdUbahActionPerformed
+        // TODO add your handling code here:
+        
+        String nis = tbl_siswa.getValueAt(baris, 1).toString();
+        ManageData tambahData = new ManageData(this, true, "Edit", nis);
+        tambahData.setVisible(true);
+    }//GEN-LAST:event_cmdUbahActionPerformed
 
     /**
      * @param args the command line arguments
